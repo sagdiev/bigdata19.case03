@@ -2,7 +2,6 @@ from pathlib import Path
 from tqdm import tqdm
 import urllib.request
 from epub_conversion.utils import open_book, convert_epub_to_lines
-Michael Makukha, [15.08.19 20:01]
 from bs4 import BeautifulSoup
 
 
@@ -18,6 +17,7 @@ BOOKS = [
     'http://static.flibusta.site/converter/get/convert?url=http%3A%2F%2Fflibusta.is%2Fb%2F831db917512b3ffb2f0246271caff7af%2Fdownload&out=epub&md5=831db917512b3ffb2f0246271caff7af',
     ]
 BUILDDIR = Path('build')
+TEXTFILE = BUILDDIR/ 'books.txt'
 
 
 def download():
@@ -32,13 +32,19 @@ def download():
 def train():
     """Train the model."""
 
+    if not TEXTFILE.exists():
     for path in BUILDDIR.glob('*.epub'):
         book = open_book(path)
         lines = convert_epub_to_lines(book)
+        text = ''
         for line in lines:
             soup = BeautifulSoup(line)
-            text = soup.get_text()
-            breakpoint()
+            text += soup.get_text()
+    TEXTFILE
+    breakpoint()
+
+    #x, y, charix = textfile_to_semi_redundant_sequences(TEXTFILE, )
+
 
 if __name__ == '__main__':
     model = train()
