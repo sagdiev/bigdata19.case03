@@ -1,4 +1,6 @@
 beautifulsoup4
 epub_conversion
-tensorflow
+
+tensorflow==2.0.0-alpha0
 tflearn
+
